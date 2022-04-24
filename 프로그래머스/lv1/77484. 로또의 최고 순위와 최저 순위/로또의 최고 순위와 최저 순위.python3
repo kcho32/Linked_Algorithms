@@ -1,0 +1,22 @@
+def solution(lottos, win_nums):
+    answer = []
+    rank = {
+        6: 1,
+        5: 2,
+        4: 3,
+        3: 4,
+        2: 5,
+        1: 6,
+        0: 6
+           }
+    
+    number = set(lottos)-set([0])
+    zero = lottos.count(0)
+    win = set(win_nums)
+    
+    correct = len(number & win)
+    answer.append(rank[correct+zero])
+    answer.append(rank[correct])
+    
+    
+    return answer
