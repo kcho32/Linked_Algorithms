@@ -35,5 +35,4 @@ def solution(numbers, hand):
                 else:
                     answer += 'R'
                     right = num_cor
-            
     return answer
