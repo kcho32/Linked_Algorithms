@@ -1,3 +1,27 @@
+from collections import deque
+
 def solution(board, moves):
     answer = 0
+    board_stacks = [[]]
+    answer_stack = []
+    for i in range(len(board[0])):
+        tmp_list = []
+        for doll_line in range(len(board) - 1, -1, -1):
+            if board[doll_line][i]:
+                tmp_list.append(board[doll_line][i])
+        board_stacks.append(tmp_list)
+        
+    for move in moves:
+        if board_stacks[move]:
+            doll = board_stacks[move].pop()
+            if answer_stack:
+                last_stack = answer_stack.pop()
+                if doll == last_stack:
+                    answer += 2
+                    continue
+                else:
+                    answer_stack.append(last_stack)
+                    answer_stack.append(doll)
+            else:
+                answer_stack.append(doll)
     return answer
