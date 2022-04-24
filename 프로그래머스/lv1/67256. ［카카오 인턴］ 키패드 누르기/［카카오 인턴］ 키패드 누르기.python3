@@ -1,0 +1,39 @@
+def solution(numbers, hand):
+    answer = ''
+    phone = {}
+    for i in range(1, 4):
+        for j in range(0, 3):
+            phone[f'{i + 3 * j}'] = (i, j + 1)
+    phone['*'] = (1, 4)
+    phone['#'] = (3, 4)
+    phone['0'] = (2, 4)
+    left = phone['*']
+    right = phone['#']
+    
+    for num in numbers:
+        num_cor = phone[str(num)]
+        left_dist = abs(left[0] - num_cor[0]) + abs(left[1] - num_cor[1])
+        right_dist = abs(right[0] - num_cor[0]) + abs(right[1] - num_cor[1])
+
+        if num in [1, 4, 7]:
+            left = num_cor
+            answer += 'L'
+        elif num in [3, 6, 9]:
+            right = num_cor
+            answer += 'R'
+        else:
+            if left_dist > right_dist:
+                answer += 'R'
+                right = num_cor
+            elif left_dist < right_dist:
+                answer += 'L'
+                left = num_cor
+            else:
+                if hand == 'left':
+                    answer += 'L'
+                    left = num_cor
+                else:
+                    answer += 'R'
+                    right = num_cor
+            
+    return answer
