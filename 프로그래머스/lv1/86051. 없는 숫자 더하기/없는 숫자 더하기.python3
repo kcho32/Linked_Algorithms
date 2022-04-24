@@ -1,0 +1,11 @@
+from collections import Counter
+
+def solution(numbers):
+    answer = 0
+    num_cnt = Counter(numbers)
+    for i in range(0, 10):
+        if num_cnt[i]:
+            continue
+        else:
+            answer += i
+    return answer
