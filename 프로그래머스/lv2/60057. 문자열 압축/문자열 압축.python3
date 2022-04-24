@@ -1,0 +1,44 @@
+from collections import deque
+
+def solution(s):
+    string = s
+    zip_unit = 1 # 단어 압축 단위
+    zip_unit_length = []
+
+    while len(string):
+        if zip_unit > len(string) // 2:
+            break
+        tmp = deque()
+        for i in range(0, len(string) - zip_unit + 1, zip_unit):
+            tmp.append(string[i:i+zip_unit])
+        if i + zip_unit < len(string):
+            tmp.append(string[i+zip_unit:])
+        shorted_str = ""
+        ch = tmp.popleft()
+        cnt = 1
+        while tmp:
+            if ch == tmp[0]:
+                cnt += 1
+                tmp.popleft()
+            else:
+                if cnt == 1:
+                    shorted_str += ch
+                else:
+                    shorted_str += str(cnt) + ch
+                ch = tmp.popleft()
+                cnt = 1
+        if cnt == 1:
+            shorted_str += ch
+        else:
+            shorted_str += str(cnt) + ch
+
+        zip_unit_length.append(len(shorted_str))
+        zip_unit += 1
+
+    if len(string) == 1:
+        answer = 1
+    else:
+        zip_unit_length.sort()
+        answer = zip_unit_length[0]
+    
+    return answer
