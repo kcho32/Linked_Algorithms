@@ -1,0 +1,22 @@
+def solution(record):
+    answer = []
+    uid = {}
+    orders = []
+    for data in record:
+        action, account, *name = data.split()
+        if action == "Enter":
+            uid[account] = name[0]
+            orders.append([action, account])
+        elif action == "Leave":
+            orders.append([action, account])
+        elif action == "Change":
+            uid[account] = name[0]
+    
+    for order in orders:
+        action, account = order
+        if action == "Enter":
+            answer.append(f'{uid[account]}님이 들어왔습니다.')
+        elif action == "Leave":
+            answer.append(f'{uid[account]}님이 나갔습니다.')
+
+    return answer
