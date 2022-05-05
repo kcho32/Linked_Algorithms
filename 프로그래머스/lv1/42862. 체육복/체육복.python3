@@ -1,0 +1,23 @@
+def solution(n, lost, reserve):
+    answer = 0
+    new_lost = sorted(set(lost) - set(reserve))
+    new_reserve = sorted(set(reserve) - set(lost))
+    lost_cnt = len(new_lost)
+    borrowed = []
+    while new_reserve:
+        x = new_reserve.pop()
+        # if x in lost:
+        #     lost.remove(x)
+        #     lost_cnt -= 1
+        if x + 1 in new_lost:
+            new_lost.remove(x + 1)
+            borrowed.append(x + 1)
+        elif x - 1 in new_lost:
+            new_lost.remove(x - 1)
+            borrowed.append(x - 1)
+        else:
+            continue
+    answer = n - lost_cnt + len(borrowed)
+    print(answer)    
+    
+    return answer
